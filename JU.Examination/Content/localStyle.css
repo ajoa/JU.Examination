@@ -1,0 +1,41 @@
+﻿a.heading-2 {
+    color: #004367;
+    text-decoration: none;
+    line-height: normal;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif, sans-serif !important;
+    font-style: normal;
+    font-size: 54px;
+    color: #004367;
+    line-height: normal;
+    margin-top: 0;
+
+    /*font-weight: 300 !important;
+    margin-bottom: 15px;
+    font-family: 'open sans';*/
+}
+
+h2 {
+    font-family: 'Open Sans', sans-serif, sans-serif !important;
+    font-style: normal;
+    font-size: 30px;
+    color: #004367;
+    line-height: normal;
+}
+
+input {
+    font-family: 'Open Sans', sans-serif, sans-serif !important;
+    font-style: normal;
+    font-size: 17px;
+    line-height: normal;
+}
+
+body {
+    overflow-x: auto;
+}
+
+.Logout {
+    background-color: #961b81; color:white;
+}

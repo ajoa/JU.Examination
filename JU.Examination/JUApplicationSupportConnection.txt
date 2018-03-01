@@ -1,0 +1,1 @@
+﻿user id=JUApplicationSupport;data source=hjdb3.win.hj.se;password=R0ck5j0N

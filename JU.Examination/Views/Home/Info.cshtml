@@ -1,0 +1,78 @@
+﻿@{
+    bool inEnglish = (null == Request.QueryString["lang"] ? false : (Request.QueryString["lang"].ToUpper().StartsWith("E") ? true : false));
+
+    ViewBag.Title = @Html.Raw((inEnglish ? "Info" : "Info"));
+    Layout = "~/Views/Shared/_JU_Layout.cshtml";
+}
+
+<h1>@Html.Raw((inEnglish ? "Scannade exam" : "Skannade tentor"))</h1>
+
+@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>*@
+
+@if (inEnglish)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Scannade exam</h2>
+            <p>
+                From the 1st of January 2017, all schools within Jönköping University will be part of digital exam distribution. Only exams written in Jönköping University's exam rooms are scanned.
+            </p>
+            <p>
+                Your scanned exams are stored digitally for two years after the date of scanning. Thereafter, they are deleted.
+            </p>
+            <p>
+                <a class="btn btn-default" href="@Url.Action("Student", "Exam", new { lang = "Eng"})">Scannade exam &raquo;</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>JU Mobile</h2>
+            <p>
+                In addition to viewing your personal schedule and booking group rooms, you can <strong>register for exams</strong>, view your registrations and results, test grading and seeking staff.
+</p>
+            <img src="~/Content/Image/HappyStudent200.png" style="height:70%;width:70%;" />
+            <p>
+                JU Mobile is available for iPhone and Android.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2><img src="~/Content/Image/ladok_logo.png" /></h2>
+            <p>In Ladok you can register for courses, <strong>register for exams</strong>, view your registrations and results and obtain certificates.</p>
+            <p><a class="btn btn-default" href="http://ju.se/student/en/studies/information-about--ladok.html">Read more &raquo;</a></p>
+        </div>
+    </div>
+}
+else
+{
+<div class="row">
+    <div class="col-md-4">
+        <h2>Skannade tentamina</h2>
+        <p>
+            Från och med 1 januari 2017 omfattas samtliga fackhögskolor vid Jönköping University av digital tentamensutlämning där samtliga salstentamina kommer att skannas.
+        </p>
+        <p>
+            Dina skannade tentamina sparas digitalt två år efter inskanningsdatum, därefter gallras de.
+        </p>
+        <p>
+            <a class="btn btn-default"  href="@Url.Action("Student", "Exam")">Skannade tentor &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>JU Mobile</h2>
+        <p>Förutom att se ditt personliga schema och boka grupprum, kan du <strong>anmäla dig till tentor</strong>, se dina registreringar och resultat, betygsfördelning på prov och söka personal.
+</p>
+        <img src="~/Content/Image/HappyStudent200.png" style="height:70%;width:70%;" />
+        <p>
+            JU Mobile finns för iPhone och Android.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2><img src="~/Content/Image/ladok_logo.png" /></h2>
+        <p>I Ladok kan du registrera dig på kurser, <strong>anmäla dig till tentor</strong>, se dina registreringar och resultat och skaffa intyg.</p>
+        <p><a class="btn btn-default" href="http://ju.se/student/studier/ladok.html">Läs mer &raquo;</a></p>
+    </div>
+</div>
+}

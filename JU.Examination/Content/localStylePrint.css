@@ -1,0 +1,40 @@
+﻿
+.utskrift_hide {
+    display: none;
+}
+
+.ju-top-header {
+    display: none;
+}
+
+.ju-text-feature {
+    display: none;
+}
+
+#ju-sidemenu {
+    display: none;
+}
+
+#headerFeature {
+    display: none;
+}
+
+.sv-grid-a1200 {
+    margin-left: 0;
+}
+
+footer {
+    display: none;
+}
+
+h1.utskrift_hide {
+    font-size: 24px;
+}
+
+.ett a {
+    font-size: 0.9em;
+}
+
+.sv-column-3 {
+    display: none;
+}

@@ -1,0 +1,159 @@
+﻿@model JU.Examination.ViewModel.LoginViewModel
+@{
+    bool inEnglish = (null == Request.QueryString["lang"] ? false : (Request.QueryString["lang"].ToUpper().StartsWith("E") ? true : false));
+
+    ViewBag.Title = @Html.Raw((inEnglish ? "Login" : "Logga in"));
+    Layout = "~/Views/Shared/_JU_Layout.cshtml";
+}
+
+@functions{
+
+    public string AbsoluteUrl(string relativeContentPath)
+    {
+        Uri contextUri = HttpContext.Current.Request.Url;
+
+        var baseUri = string.Format("{0}://{1}{2}", contextUri.Scheme,
+           contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
+
+        return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
+    }
+}
+
+
+    <script type="text/javascript">
+        function checkInput() {
+
+        if (!$.trim($('#UserName').val())) {
+            return false;
+        }
+        if (!$.trim($('#Password').val())) {
+            return false;
+        }
+
+        $('.alert').hide();
+
+        $('#spinLogin').show();
+
+        return true;
+    }
+
+    function init() {
+        document.getElementById("@Html.Raw(!Model.PasswordValid ? "Password" : "UserName" )").focus();
+    }
+    window.onload = init;
+
+    </script>
+
+@if (inEnglish)
+{
+    <h1>Login</h1>
+        <p class="lead">Log in to view your scanned exams.</p>
+}
+else
+{
+    <h1>Logga in</h1>
+        <p class="lead">Logga in för att se dina skannade tentor.</p>
+}
+
+@*<div class="jumbotron">
+    @if (inEnglish)
+    {
+        <h1>Login</h1>
+        <p class="lead">Log in to view your scanned exams.</p>
+    }
+    else
+    {
+        <h1>Logga in</h1>
+        <p class="lead">Logga in för att se dina skannade tentor.</p>
+    }
+</div>*@
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>&nbsp;</h2>
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                <div class="alert alert-info alert-dismissable">
+                    @Html.Raw((inEnglish ? "You are logged in but do not have permission for the requested service." : "Du är inloggad men har ej behörighet till efterfrågad tjänst."))
+                </div>
+            }
+
+            @if (Model.Message.Status != JU.Examination.ViewModel.MessageStatusViewModel.NOMESSAGE)
+            {
+                if (Model.Message.Status == JU.Examination.ViewModel.MessageStatusViewModel.ERROR)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>@Model.Message.Title</strong><br /> @Model.Message.Text
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>@Model.Message.Title</strong><br /> @Model.Message.Text
+                    </div>
+                }
+            }
+
+
+            @using (@Html.BeginForm("Login", "Account", new { returnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { onsubmit = "return checkInput();" }))
+            {
+                <div>
+                    <div class="input-group @Html.Raw(Model.UserNameValid ? "" : "has-error")">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="UserName" name="UserName" autocomplete="off" style="width:200px;" type="text" class="form-control" placeholder="@Html.Raw((inEnglish ? "Username" : "Användarnamn"))" size="30" value="@Model.UserName" />
+                    </div>
+                    <br />
+                    <div class="input-group @Html.Raw(Model.PasswordValid ? "" : "has-error")">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="Password" name="Password" autocomplete="off" style="width:200px;" type="password" class="form-control" placeholder="@Html.Raw((inEnglish ? "Password" : "Lösenord"))" size="30" value="@Model.Password" />
+                    </div>
+
+
+
+                    <div class="checkbox">
+                        <input id="RememberMe" type="checkbox" name="RememberMe" value="true" @Html.Raw(Model.RememberMe ? "checked=\"checked\"" : "") />
+                        <label class="form-check-label" for="RememberMe" style="font-size:0.7em;"> @Html.Raw((inEnglish ? "Remember me!" : "Kom ihåg mig!"))</label>
+                       
+                    </div>
+
+                    <button class="btn" type="submit" style="background-color:#961b81; color:white;" ><i id="spinLogin" class="fa fa-refresh fa-spin" style="display: none;"></i> @Html.Raw((inEnglish ? "Login" : "Logga in")) <span class="glyphicon glyphicon-log-in"></span></button>
+                </div>
+
+                <input name="lang" type="hidden" value="@(inEnglish ? "Eng" : "Swe")" />
+            }
+
+
+            <hr />
+            <p class="normal alignCenter">
+                @if (inEnglish)
+                {
+                    <a href="https://kas.hj.se/MyAccount/passwordRecover/step1.aspx?lang=eng">
+                        Forgotten or expired password?
+                    </a>
+                }
+                else
+                {
+                    <a href="https://kas.hj.se/MyAccount/passwordRecover/step1.aspx?lang=swe">
+                        Glömt eller gammalt lösenord?
+                    </a>
+                }
+            </p>
+
+    </div>
+    <div class="col-md-4">
+        @if (inEnglish)
+        {
+            <h2>Username</h2>
+            <p>Your username and password are the same as the ones you use to log in to the computers at campus. It you don't have a user account, contact <a href="https://ju.se/en/it-helpdesk.html">IT Helpdesk</a>.</p>
+        }
+        else
+        {
+            <h2>Användarnamn</h2>
+            <p>Som användarnamn och lösenord använder du samma uppgifter som när du loggar in på högskolans datorer. Saknar du användarkonto, kontakta <a href="https://ju.se/it-helpdesk.html">IT Helpdesk</a>.</p>
+        }
+    </div>
+</div>

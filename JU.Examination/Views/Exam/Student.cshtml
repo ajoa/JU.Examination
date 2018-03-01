@@ -1,0 +1,141 @@
+﻿@model JU.Examination.ViewModel.ExamViewModel
+
+@{
+    bool inEnglish = (null == Request.QueryString["lang"] ? false : (Request.QueryString["lang"].ToUpper().StartsWith("E") ? true : false));
+
+    ViewBag.Title = "Skannade tentor";
+    Layout = "~/Views/Shared/_JU_Layout.cshtml";
+}
+
+<script lang="javascript">
+
+        function toggle_visibility(id, idClick) {
+            var e = document.getElementById(id);
+            var eClick = document.getElementById(idClick);
+            if (e.style.display == 'block' || e.style.display == '') {
+                e.style.display = 'none';
+                eClick.innerHTML = "@Html.Raw(inEnglish ? "Read more" : "Läs mer")";
+            }
+            else {
+                e.style.display = 'block';
+                eClick.innerHTML = "@Html.Raw(inEnglish ? "Show less" : "Visa mindre") ";
+            }
+        }
+
+</script>
+
+<div class="utskrift_hide">
+
+@if (inEnglish)
+{
+    <h1>Scannade exam</h1>
+    <p>
+        From the 1st of January 2017, all schools within Jönköping University will be part of digital exam distribution. Only exams written in Jönköping University's exam rooms are scanned.
+    </p><p>
+        Your scanned exams are stored digitally for two years after the date of scanning. Thereafter, they are deleted.
+    </p><p>
+        Remember to save them on your own computer if you want to have access to them for a longer period of time (<a id="hideClick" href="#" onclick="toggle_visibility('hideMe', this.id)">Read more</a>).
+    </p>
+        <div id="hideMe" style="display:none">
+            <p>
+                The original exams in paper format are archived and stored for one month after the date of scanning. Should you want to collect your original exam, please notify us via our <a href="https://dh.hj.se/special/default.asp?form_id=1" target="_blank">case management system</a>.
+            </p>
+            <p>
+                Should you wish to request correction or amendment of a grade decision contact your examiner.
+            </p><p>
+                Only exams taken in Jönköping University´s exam rooms are scanned.
+            </p><p>
+                More information can be found at the <a href="http://ju.se/student/en/studies/examination.html" target="_blank">Student Web</a>.
+            </p>
+            <p>
+                Information regarding <a href="http://ju.se/student/en/studies/examination/digital-distribution.html">handling of personal data</a>.
+            </p>
+        </div>
+}
+else
+{
+    <h1>Skannade tentor</h1>
+    <p>
+        Från och med 1 januari 2017 omfattas samtliga fackhögskolor vid Jönköping University av digital tentamensutlämning där samtliga salstentamina kommer att skannas.
+    </p><p>
+        Dina skannade tentamina sparas digitalt två år efter inskanningsdatum, därefter gallras de.
+    </p><p>
+        Kom ihåg att spara ner dem på egen dator om du vill ha tillgång till dem under längre tid (<a id="hideClick" href="#" onclick="toggle_visibility('hideMe', this.id)">Läs mer</a>).
+    </p>
+    <div id="hideMe" style="display:none">
+        <p>
+            Originaltentamen i pappersformat arkiveras och sparas i en månad efter inskanningsdatum. Önskar du begära ut din originaltentamen anmäler du detta via <a href="http://utb.hj.se/special/default.asp?form_id=1" target="_blank">ärendehanteringssystemet</a>.
+        </p>
+        <p>
+            Om du önskar begära rättelse eller omprövning av betygsbeslut kontaktar du din examinator.
+        </p><p>
+            Endast salstentamen skannas.
+        </p><p>
+            Mer information finner du på <a href="http://ju.se/student/studier/tentamen-och-omtentamen.html" target="_blank">Studentwebben</a>.
+        </p>
+        <p>
+            Information gällande <a href="http://ju.se/student/studier/tentamen-och-omtentamen/digital-utlamning.html">behandling av personuppgifter</a>.
+        </p>
+    </div>
+}
+  
+    @if (Model.Message.Status != JU.Examination.ViewModel.MessageStatusViewModel.NOMESSAGE)
+    {
+        if (Model.Message.Status == JU.Examination.ViewModel.MessageStatusViewModel.ERROR)
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>@Model.Message.Title</strong><br /> @Model.Message.Text
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>@Model.Message.Title</strong><br /> @Model.Message.Text
+            </div>
+        }
+    }
+    
+    @if (0 == Model.ScanningOfExams.Exams.Count && Model.Message.Status != JU.Examination.ViewModel.MessageStatusViewModel.ERROR)
+    {
+        <h2>
+            @Html.Raw(inEnglish ? "There are no scanned exams." : "Inga digitalt skannade tentamina finns.")
+        </h2>
+    }
+    else
+    {
+        
+    <table class="table" width='100%' style="font-size:0.9em;">
+        @if (inEnglish)
+        {
+            <thead><tr><th>Exam date</th><th>Course code</th><th>Course name</th><th>Exam code</th><th>Graded exams</th></tr></thead>
+        }
+        else
+        {
+            <thead><tr><th>Tentamensdatum</th><th>Kurskod</th><th>Kursnamn</th><th>Provkod</th><th>Rättade tentamina</th></tr></thead>
+        }
+
+        <tbody>
+            @foreach (AlcomScanningOfExam.ScanningOfExamData exam in Model.ScanningOfExams.Exams)
+            {
+               <tr>
+                    <td>@exam.ExamDate.ToString("yyyy-MM-dd")</td>
+                    <td>@exam.Courseid</td>
+                    <td>@exam.CourseName</td>
+                    <td>@exam.ExamCode</td>
+                    <td nowrap>
+                        <a href="@Url.Action("GetExamPdf", "Exam", new { exam = @exam.AlcomFileId, download = false,  lang = (inEnglish ? "Eng" : "Swe") })" style="font-size:0.8em;">
+                            <span class="glyphicon glyphicon-open"></span>@Html.Raw(inEnglish ? "Open" : "Öppna")
+                        </a>
+                        &nbsp;
+                        <a href="@Url.Action("GetExamPdf", "Exam", new { exam = @exam.AlcomFileId, download = true,  lang = (inEnglish ? "Eng" : "Swe") })" style="font-size:0.8em;">
+                             <span class="glyphicon glyphicon-save"></span>@Html.Raw(inEnglish ? "Download" : "Hämta")
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

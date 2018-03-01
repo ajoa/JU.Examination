@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://windream.oru.se/wws/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://windream.oru.se/wws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://windream.oru.se/wws/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wdFileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteFileResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="changeMetaData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wdFileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wdInfos" type="tns:ArrayOfWdInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWdInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wdInfo" nillable="true" type="tns:wdInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wdInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="indexName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="indexValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="changeMetaDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="changeMetaDataResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAvailableFilesByIndexValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIndex" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wild" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileinfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="delayed" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWFileInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wFileInfo" nillable="true" type="tns:wFileInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wFileInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="fileId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fileCreated" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="fileWindreamPath" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="wdInfos" type="tns:ArrayOfWdInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAvailableFilesByIndexValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getAvailableFilesByIndexValueResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileinfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByFileId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="attachComment" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByFileIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getFileByFileIdResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByFileIdInclMeta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:wFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="attachComment" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByFileIdInclMetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getFileByFileIdInclMetaResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:wFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAttachFilesByFileId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="firstFileId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="secondFileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAttachFilesByFileIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getAttachFilesByFileIdResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryfile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByIndexValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIndex" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryFile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileByIndexValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getFileByIndexValueResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaryFile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="archiveFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchValues" type="tns:ArrayOfWSearchInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binFile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWSearchInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wSearchInfo" nillable="true" type="tns:wSearchInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wSearchInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="wIndex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="wValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="archiveFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="archiveFileResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeAdvancedSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchInfo" type="tns:ArrayOfWSearchInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="wild" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="delayVisable" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeAdvancedSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="executeAdvancedSearchResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeObjectSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectInfo" type="tns:ArrayOfWObjectSearchInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="delayVisable" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWObjectSearchInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wObjectSearchInfo" nillable="true" type="tns:wObjectSearchInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wObjectSearchInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="wIndex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="wValue" />
+          <s:element minOccurs="1" maxOccurs="1" name="wWild" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="executeObjectSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="executeObjectSearchResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeTimeSpanSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectInfo" type="tns:ArrayOfWObjectSearchInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="dateIndex" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="startSpan" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endSpan" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wild" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeTimeSpanSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="executeTimeSpanSearchResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfos" type="tns:ArrayOfWFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileInfoById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wdFileId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:wFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getFileInfoByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getFileInfoByIdResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:wFileInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addCommentToReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="indexName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wdFileId" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addCommentToReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="addCommentToReportResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="docTypes" type="tns:ArrayOfWDocumentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="returnSystemVariables" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWDocumentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wDocumentType" nillable="true" type="tns:wDocumentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wDocumentType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentIndices" type="tns:ArrayOfWDocumentIndice" />
+          <s:element minOccurs="0" maxOccurs="1" name="SystemIndices" type="tns:ArrayOfWDocumentIndice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWDocumentIndice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wDocumentIndice" nillable="true" type="tns:wDocumentIndice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wDocumentIndice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDocumentTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getDocumentTypesResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="docTypes" type="tns:ArrayOfWDocumentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="obsolete_generatePrintSheetKAU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetKAU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetKAU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kurskod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provkod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provdat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="plats" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWStudentInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="wStudentInfo" nillable="true" type="tns:wStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wStudentInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="anonymkod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="anonymkod_orig" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fnamn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enamn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pnr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="obsolete_generatePrintSheetKAUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="obsolete_generatePrintSheetKAUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetKAU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetKAU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetKAUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetKAUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetDU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetDU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="nonAnonymous" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetDU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kurskod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provkod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provdat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetDUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetDUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetUU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetUU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="nonAnonymous" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetUU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kurskod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provkod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provdat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetUUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetUUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetORU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetORU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="printAnonymous" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintList" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetORU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kursbenamns_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provbenamns" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kurskod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provkod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="provdat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="institution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tentaid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lokal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="antalanm" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetORUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetORUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetMIUN">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetMIUN" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintList" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetMIUN">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="institution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="room" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numstudent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examtime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacher" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examlistnumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="exampoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursepoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examtext" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examguards" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="startPlacementIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="extraStudents" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ladok_idnr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetMIUNResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetMIUNResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetHV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetHV" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="printAnonymous" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintList" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintListHead" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetHV">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="institution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="room" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numstudent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examtime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacher" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examlistnumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="exampoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursepoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetHVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetHVResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetORU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetORU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetORUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetORUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetDU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetDU" />
+            <s:element minOccurs="1" maxOccurs="1" name="nonAnonymous" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetDUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetDUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetBTH">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetBTH" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="anonymousExam" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintList" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="emptyPrintList" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetBTH">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="institution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="room" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numstudent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examtime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacher" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacher_arriving" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="exampoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursepoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="informationtext" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="extraStudents" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ladok_idnr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacherInfo" type="tns:wTeacherInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="wTeacherInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="firstname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="surname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="arriving" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetBTHResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetBTHResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generatePrintSheetJU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printSheetInfo" type="tns:wPrintSheetJU" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="anonymousExam" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="onlyPrintList" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintSheetJU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="institution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="room" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numstudent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examtime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teacher" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="exampoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursepoints" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="informationtext" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generatePrintSheetJUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generatePrintSheetJUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetKTH">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printExamInfo" type="tns:wPrintExamSheetKTH" />
+            <s:element minOccurs="1" maxOccurs="1" name="scoredExam" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="numberOfCopys" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintExamSheetKTH">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generateExamSheetKTHResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetKTHResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetKTHwStudents">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printExamInfo" type="tns:wPrintExamSheetKTH" />
+            <s:element minOccurs="1" maxOccurs="1" name="scoredExam" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetKTHwStudentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetKTHwStudentsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetHV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printExamInfo" type="tns:wPrintExamSheetHV" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintExamSheetHV">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generateExamSheetHVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetHVResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="generateExamSheetUU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="printExamInfo" type="tns:wPrintExamSheetUU" />
+            <s:element minOccurs="1" maxOccurs="1" name="printStudents" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="wPrintExamSheetUU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_full" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="coursename_presentation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="courseid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="examname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="studentInfos" type="tns:ArrayOfWStudentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="generateExamSheetUUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="generateExamSheetUUResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="printPDF" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteFileSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteFile" />
+  </wsdl:message>
+  <wsdl:message name="deleteFileSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="changeMetaDataSoapIn">
+    <wsdl:part name="parameters" element="tns:changeMetaData" />
+  </wsdl:message>
+  <wsdl:message name="changeMetaDataSoapOut">
+    <wsdl:part name="parameters" element="tns:changeMetaDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAvailableFilesByIndexValueSoapIn">
+    <wsdl:part name="parameters" element="tns:getAvailableFilesByIndexValue" />
+  </wsdl:message>
+  <wsdl:message name="getAvailableFilesByIndexValueSoapOut">
+    <wsdl:part name="parameters" element="tns:getAvailableFilesByIndexValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFileByFileIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getFileByFileId" />
+  </wsdl:message>
+  <wsdl:message name="getFileByFileIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getFileByFileIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFileByFileIdInclMetaSoapIn">
+    <wsdl:part name="parameters" element="tns:getFileByFileIdInclMeta" />
+  </wsdl:message>
+  <wsdl:message name="getFileByFileIdInclMetaSoapOut">
+    <wsdl:part name="parameters" element="tns:getFileByFileIdInclMetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAttachFilesByFileIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getAttachFilesByFileId" />
+  </wsdl:message>
+  <wsdl:message name="getAttachFilesByFileIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getAttachFilesByFileIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFileByIndexValueSoapIn">
+    <wsdl:part name="parameters" element="tns:getFileByIndexValue" />
+  </wsdl:message>
+  <wsdl:message name="getFileByIndexValueSoapOut">
+    <wsdl:part name="parameters" element="tns:getFileByIndexValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="archiveFileSoapIn">
+    <wsdl:part name="parameters" element="tns:archiveFile" />
+  </wsdl:message>
+  <wsdl:message name="archiveFileSoapOut">
+    <wsdl:part name="parameters" element="tns:archiveFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="executeAdvancedSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:executeAdvancedSearch" />
+  </wsdl:message>
+  <wsdl:message name="executeAdvancedSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:executeAdvancedSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="executeObjectSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:executeObjectSearch" />
+  </wsdl:message>
+  <wsdl:message name="executeObjectSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:executeObjectSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="executeTimeSpanSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:executeTimeSpanSearch" />
+  </wsdl:message>
+  <wsdl:message name="executeTimeSpanSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:executeTimeSpanSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFileInfoByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getFileInfoById" />
+  </wsdl:message>
+  <wsdl:message name="getFileInfoByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getFileInfoByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="addCommentToReportSoapIn">
+    <wsdl:part name="parameters" element="tns:addCommentToReport" />
+  </wsdl:message>
+  <wsdl:message name="addCommentToReportSoapOut">
+    <wsdl:part name="parameters" element="tns:addCommentToReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:getDocumentTypes" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:getDocumentTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="obsolete_generatePrintSheetKAUSoapIn">
+    <wsdl:part name="parameters" element="tns:obsolete_generatePrintSheetKAU" />
+  </wsdl:message>
+  <wsdl:message name="obsolete_generatePrintSheetKAUSoapOut">
+    <wsdl:part name="parameters" element="tns:obsolete_generatePrintSheetKAUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetKAUSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetKAU" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetKAUSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetKAUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetDUSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetDU" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetDUSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetDUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetUUSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetUU" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetUUSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetUUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetORUSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetORU" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetORUSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetORUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetMIUNSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetMIUN" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetMIUNSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetMIUNResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetHVSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetHV" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetHVSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetHVResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetORUSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetORU" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetORUSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetORUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetDUSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetDU" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetDUSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetDUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetBTHSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetBTH" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetBTHSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetBTHResponse" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetJUSoapIn">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetJU" />
+  </wsdl:message>
+  <wsdl:message name="generatePrintSheetJUSoapOut">
+    <wsdl:part name="parameters" element="tns:generatePrintSheetJUResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetKTHSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetKTH" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetKTHSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetKTHResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetKTHwStudentsSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetKTHwStudents" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetKTHwStudentsSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetKTHwStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetHVSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetHV" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetHVSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetHVResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetUUSoapIn">
+    <wsdl:part name="parameters" element="tns:generateExamSheetUU" />
+  </wsdl:message>
+  <wsdl:message name="generateExamSheetUUSoapOut">
+    <wsdl:part name="parameters" element="tns:generateExamSheetUUResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WWSSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <wsdl:input message="tns:deleteFileSoapIn" />
+      <wsdl:output message="tns:deleteFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="changeMetaData">
+      <wsdl:input message="tns:changeMetaDataSoapIn" />
+      <wsdl:output message="tns:changeMetaDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableFilesByIndexValue">
+      <wsdl:input message="tns:getAvailableFilesByIndexValueSoapIn" />
+      <wsdl:output message="tns:getAvailableFilesByIndexValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileId">
+      <wsdl:input message="tns:getFileByFileIdSoapIn" />
+      <wsdl:output message="tns:getFileByFileIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileIdInclMeta">
+      <wsdl:input message="tns:getFileByFileIdInclMetaSoapIn" />
+      <wsdl:output message="tns:getFileByFileIdInclMetaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAttachFilesByFileId">
+      <wsdl:input message="tns:getAttachFilesByFileIdSoapIn" />
+      <wsdl:output message="tns:getAttachFilesByFileIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFileByIndexValue">
+      <wsdl:input message="tns:getFileByIndexValueSoapIn" />
+      <wsdl:output message="tns:getFileByIndexValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="archiveFile">
+      <wsdl:input message="tns:archiveFileSoapIn" />
+      <wsdl:output message="tns:archiveFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="executeAdvancedSearch">
+      <wsdl:input message="tns:executeAdvancedSearchSoapIn" />
+      <wsdl:output message="tns:executeAdvancedSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="executeObjectSearch">
+      <wsdl:input message="tns:executeObjectSearchSoapIn" />
+      <wsdl:output message="tns:executeObjectSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="executeTimeSpanSearch">
+      <wsdl:input message="tns:executeTimeSpanSearchSoapIn" />
+      <wsdl:output message="tns:executeTimeSpanSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFileInfoById">
+      <wsdl:input message="tns:getFileInfoByIdSoapIn" />
+      <wsdl:output message="tns:getFileInfoByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addCommentToReport">
+      <wsdl:input message="tns:addCommentToReportSoapIn" />
+      <wsdl:output message="tns:addCommentToReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentTypes">
+      <wsdl:input message="tns:getDocumentTypesSoapIn" />
+      <wsdl:output message="tns:getDocumentTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="obsolete_generatePrintSheetKAU">
+      <wsdl:input message="tns:obsolete_generatePrintSheetKAUSoapIn" />
+      <wsdl:output message="tns:obsolete_generatePrintSheetKAUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetKAU">
+      <wsdl:input message="tns:generatePrintSheetKAUSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetKAUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetDU">
+      <wsdl:input message="tns:generatePrintSheetDUSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetDUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetUU">
+      <wsdl:input message="tns:generatePrintSheetUUSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetUUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetORU">
+      <wsdl:input message="tns:generatePrintSheetORUSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetORUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetMIUN">
+      <wsdl:input message="tns:generatePrintSheetMIUNSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetMIUNSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetHV">
+      <wsdl:input message="tns:generatePrintSheetHVSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetHVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetORU">
+      <wsdl:input message="tns:generateExamSheetORUSoapIn" />
+      <wsdl:output message="tns:generateExamSheetORUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetDU">
+      <wsdl:input message="tns:generateExamSheetDUSoapIn" />
+      <wsdl:output message="tns:generateExamSheetDUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetBTH">
+      <wsdl:input message="tns:generatePrintSheetBTHSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetBTHSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetJU">
+      <wsdl:input message="tns:generatePrintSheetJUSoapIn" />
+      <wsdl:output message="tns:generatePrintSheetJUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTH">
+      <wsdl:input message="tns:generateExamSheetKTHSoapIn" />
+      <wsdl:output message="tns:generateExamSheetKTHSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTHwStudents">
+      <wsdl:input message="tns:generateExamSheetKTHwStudentsSoapIn" />
+      <wsdl:output message="tns:generateExamSheetKTHwStudentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetHV">
+      <wsdl:input message="tns:generateExamSheetHVSoapIn" />
+      <wsdl:output message="tns:generateExamSheetHVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetUU">
+      <wsdl:input message="tns:generateExamSheetUUSoapIn" />
+      <wsdl:output message="tns:generateExamSheetUUSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WWSSoap" type="tns:WWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://windream.oru.se/wws/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <soap:operation soapAction="http://windream.oru.se/wws/deleteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeMetaData">
+      <soap:operation soapAction="http://windream.oru.se/wws/changeMetaData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableFilesByIndexValue">
+      <soap:operation soapAction="http://windream.oru.se/wws/getAvailableFilesByIndexValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileId">
+      <soap:operation soapAction="http://windream.oru.se/wws/getFileByFileId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileIdInclMeta">
+      <soap:operation soapAction="http://windream.oru.se/wws/getFileByFileIdInclMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttachFilesByFileId">
+      <soap:operation soapAction="http://windream.oru.se/wws/getAttachFilesByFileId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByIndexValue">
+      <soap:operation soapAction="http://windream.oru.se/wws/getFileByIndexValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="archiveFile">
+      <soap:operation soapAction="http://windream.oru.se/wws/archiveFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeAdvancedSearch">
+      <soap:operation soapAction="http://windream.oru.se/wws/executeAdvancedSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeObjectSearch">
+      <soap:operation soapAction="http://windream.oru.se/wws/executeObjectSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeTimeSpanSearch">
+      <soap:operation soapAction="http://windream.oru.se/wws/executeTimeSpanSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileInfoById">
+      <soap:operation soapAction="http://windream.oru.se/wws/getFileInfoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCommentToReport">
+      <soap:operation soapAction="http://windream.oru.se/wws/addCommentToReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentTypes">
+      <soap:operation soapAction="http://windream.oru.se/wws/getDocumentTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obsolete_generatePrintSheetKAU">
+      <soap:operation soapAction="http://windream.oru.se/wws/obsolete_generatePrintSheetKAU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetKAU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetKAU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetDU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetDU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetUU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetUU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetORU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetORU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetMIUN">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetMIUN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetHV">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetHV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetORU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetORU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetDU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetDU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetBTH">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetBTH" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetJU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generatePrintSheetJU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTH">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetKTH" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTHwStudents">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetKTHwStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetHV">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetHV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetUU">
+      <soap:operation soapAction="http://windream.oru.se/wws/generateExamSheetUU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WWSSoap12" type="tns:WWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://windream.oru.se/wws/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <soap12:operation soapAction="http://windream.oru.se/wws/deleteFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeMetaData">
+      <soap12:operation soapAction="http://windream.oru.se/wws/changeMetaData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableFilesByIndexValue">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getAvailableFilesByIndexValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileId">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getFileByFileId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByFileIdInclMeta">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getFileByFileIdInclMeta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttachFilesByFileId">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getAttachFilesByFileId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileByIndexValue">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getFileByIndexValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="archiveFile">
+      <soap12:operation soapAction="http://windream.oru.se/wws/archiveFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeAdvancedSearch">
+      <soap12:operation soapAction="http://windream.oru.se/wws/executeAdvancedSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeObjectSearch">
+      <soap12:operation soapAction="http://windream.oru.se/wws/executeObjectSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="executeTimeSpanSearch">
+      <soap12:operation soapAction="http://windream.oru.se/wws/executeTimeSpanSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileInfoById">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getFileInfoById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCommentToReport">
+      <soap12:operation soapAction="http://windream.oru.se/wws/addCommentToReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentTypes">
+      <soap12:operation soapAction="http://windream.oru.se/wws/getDocumentTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obsolete_generatePrintSheetKAU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/obsolete_generatePrintSheetKAU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetKAU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetKAU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetDU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetDU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetUU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetUU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetORU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetORU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetMIUN">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetMIUN" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetHV">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetHV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetORU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetORU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetDU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetDU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetBTH">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetBTH" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generatePrintSheetJU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generatePrintSheetJU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTH">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetKTH" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetKTHwStudents">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetKTHwStudents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetHV">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetHV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateExamSheetUU">
+      <soap12:operation soapAction="http://windream.oru.se/wws/generateExamSheetUU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WWS">
+    <wsdl:port name="WWSSoap" binding="tns:WWSSoap">
+      <soap:address location="http://windreamsrv.win.hj.se/wws/wws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WWSSoap12" binding="tns:WWSSoap12">
+      <soap12:address location="http://windreamsrv.win.hj.se/wws/wws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
